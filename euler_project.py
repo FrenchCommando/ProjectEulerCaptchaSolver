@@ -95,14 +95,31 @@ class ProjectEulerInterface:
                 msg = ProjectEulerInterface.display_msg(resp)
                 print(msg)
                 if isinstance(msg, list):
-                    #   [
-                    #   <p> Sorry, but the answer you gave appears to be incorrect. < / p >,
-                    #   < p > Go back to < a href = "problem=20" > Problem 20 < / a >.< / p >
-                    #   ]
                     if "incorrect" in msg[0].text:
+                        #   [
+                        #   <p> Sorry, but the answer you gave appears to be incorrect. < / p >,
+                        #   < p > Go back to < a href = "problem=20" > Problem 20 < / a >.< / p >
+                        #   ]
                         print("Answer submitted but incorrect")
                         break
-                    print("Submitted I guess ...")
+                    if "Congratulations" in msg[0].text:
+                        # [<p>Congratulations, the answer you gave to problem 11 is correct.</p>, 
+                        # <p>You are the 215573rd person to have solved this problem.</p>, 
+                        # <p>This problem had a difficulty rating of 5%. 
+                        # The highest difficulty rating you have solved remains at 5%. 
+                        # <span class="info"><img src="images/icon_info.png" style="width:15px;vertical-align:top;"/>
+                        # <span style="width:200px;left:0;">Problem ID: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span></span></p>, 
+                        # <p>Return to <a href="problems">Problems</a> page.</p>, 
+                        # <p>We hope that you enjoyed solving this problem. 
+                        # Please do not deprive others of going through the same process 
+                        # by publishing your solution outside of Project Euler; 
+                        # for example, on other websites, forums, blogs, 
+                        # or any public repositories (e.g. GitHub), et cetera. 
+                        # Members found to be spoiling problems will have their accounts locked. 
+                        # If you are keen to share your insights and/or see how other members have solved the problem, 
+                        # then please visit <a href="thread=11">thread 11</a> in our private discussion forum.</p>]
+                        print("Submitted I guess ...")
+                        break
                 if "successful" in msg.text:
                     submitted = True
 
