@@ -68,8 +68,8 @@ class ProjectEulerInterface:
             print("Sign out found - Meaning you are connected", signout_msg)
             if not soup.find(id='captcha_image'):
                 # Assume that if you don't see a captcha then this problem was already solved
-                print('Solved')
-                break
+                print('No captcha found - The Problem is Solved')
+                continue
 
             submitted = False
             while not submitted:
@@ -118,7 +118,7 @@ class ProjectEulerInterface:
                         # Members found to be spoiling problems will have their accounts locked. 
                         # If you are keen to share your insights and/or see how other members have solved the problem, 
                         # then please visit <a href="thread=11">thread 11</a> in our private discussion forum.</p>]
-                        print("Submitted I guess ...")
+                        print("Submitted ! Answer is correct !")
                         break
                 if "successful" in msg.text:
                     submitted = True
@@ -130,4 +130,17 @@ class ProjectEulerInterface:
 
 if __name__ == "__main__":
     # ProjectEulerInterface.login()
-    ProjectEulerInterface.submit({'20': '151515', '66': '69'})
+    filename = "..\\output.txt"
+    with open(filename, 'r') as res_file:
+        res = res_file.readlines()
+        d = {}
+        k = ''
+        for l in res:
+            if k == '':
+                k = l.split(" ")[-1].strip()
+            else:
+                v = l.strip()
+                d[k] = v
+                k = ''
+    print(d)
+    ProjectEulerInterface.submit(d)
